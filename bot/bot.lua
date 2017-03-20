@@ -1,5 +1,5 @@
 -- #Beyond Reborn Robot
--- #@BeyondTeam
+-- #@periphery
 
 tdcli = dofile('./tg/tdcli.lua')
 serpent = (loadfile "./libs/serpent.lua")()
@@ -75,20 +75,20 @@ function create_config( )
     admins = {},
     disabled_channels = {},
     moderation = {data = './data/moderation.json'},
-    info_text = [[》Beyond Reborn v4.0
+    info_text = [[》silas v4.0
 An advanced administration bot based on https://valtman.name/telegram-cli
 
-》https://github.com/BeyondTeam/BDReborn 
+》https://telegram.me/joinchat/AAAAAEFwJsMbE-tRTIV0kQ
 
 》Admins :
-》@SoLiD ➣ Founder & Developer《
-》@Makan ➣ Developer《
-》@Rixel ➣ Developer 《
-》@Exacute ➣ Developer《
-》@To0fan ➣ Developer《
-》@CiveY ➣ Developer
-》@ArmanDev ➣ Manager《
-》@MrPars ➣ Manager《
+》@oralius ➣ Founder 《
+》https://telegram.me/joinchat/AAAAAEFwJsMbE-tRTIV0kQ《
+》https://telegram.me/joinchat/AAAAAEFwJsMbE-tRTIV0kQ《
+》https://telegram.me/joinchat/AAAAAEFwJsMbE-tRTIV0kQ《
+》https://telegram.me/joinchat/AAAAAEFwJsMbE-tRTIV0kQ《
+》 آدرس ورود به كانال ما
+》@periphery《
+》https://telegram.me/joinchat/AAAAAEFwJsMbE-tRTIV0kQ《
 
 》Special thanks to :
 》@Vysheng
@@ -98,10 +98,10 @@ An advanced administration bot based on https://valtman.name/telegram-cli
 》And Beyond Team Members
 
 》Our channel :
-》@BeyondTeam《
+》@periphery《
 
-》Our website :
-》http://BeyondTeam.ir
+》we channel :
+》https://telegram.me/joinchat/AAAAAEFwJsMbE-tRTIV0kQ
 ]],
   }
 	serialize_to_file(config, './data/config.lua')
