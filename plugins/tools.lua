@@ -1,5 +1,5 @@
 --Begin Tools.lua :)
-local SUDO = 157059515 -- put Your ID here! <===
+local SUDO = 108363478 -- put Your ID here! <===
 function exi_files(cpath)
     local files = {}
     local pth = cpath
@@ -159,9 +159,6 @@ local function botrem(msg)
 	end
 	data[tostring(groups)][tostring(msg.to.id)] = nil
 	save_data(_config.moderation.data, data)
-	if redis:get('CheckExpire::'..msg.to.id) then
-		redis:del('CheckExpire::'..msg.to.id)
-	end
 	if redis:get('ExpireDate:'..msg.to.id) then
 		redis:del('ExpireDate:'..msg.to.id)
 	end
@@ -175,7 +172,7 @@ local function warning(msg)
 	if expiretime == -1 then
 		return
 	else
-	local d = math.floor(expiretime / 86400) + 1
+		local d = math.floor(expiretime / 86400) + 1
         if tonumber(d) == 1 and not is_sudo(msg) and is_mod(msg) then
 			if lang then
 				tdcli.sendMessage(msg.to.id, 0, 1, 'از شارژ گروه 1 روز باقی مانده، برای شارژ مجدد با سودو ربات تماس بگیرید وگرنه با اتمام زمان شارژ، گروه از لیست ربات حذف وربات گروه را ترک خواهد کرد.', 1, 'md')
@@ -524,11 +521,7 @@ local function pre_process(msg)
 			end
 			botrem(msg)
 		else
-			local expiretime = redis:ttl('ExpireDate:'..msg.to.id)
-			local day = (expiretime / 86400)
-			if tonumber(day) > 0.208 and not is_sudo(msg) and is_mod(msg) then
-				warning(msg)
-			end
+			warning(msg)
 		end
 	end
 end
@@ -607,10 +600,7 @@ if is_sudo(msg) then
 					tdcli.sendMessage(msg.to.id, msg.id_, 1, '_Group charged 3 minutes  for settings._', 1, 'md')
 				end
 		end
-		if matches[1] == 'rem' then
-			if redis:get('CheckExpire::'..msg.to.id) then
-				redis:del('CheckExpire::'..msg.to.id)
-			end
+		if matches[1] == 'rem' and redis:get('ExpireDate:'..msg.to.id) then
 			redis:del('ExpireDate:'..msg.to.id)
 		end
 		if matches[1]:lower() == 'gid' then
@@ -1093,12 +1083,12 @@ matches[3] then
 		local send_file = 
 "./"..matches[2].."/"..matches[3]
 		tdcli.sendDocument(msg.chat_id_, msg.id_,0, 
-1, nil, send_file, '@BeyondTeam', dl_cb, nil)
+1, nil, send_file, '@periphery', dl_cb, nil)
 	end
 	if matches[1]:lower() == "sendplug" and matches[2] then
 	    local plug = "./plugins/"..matches[2]..".lua"
 		tdcli.sendDocument(msg.chat_id_, msg.id_,0, 
-1, nil, plug, '@BeyondTeam', dl_cb, nil)
+1, nil, plug, '@periphery', dl_cb, nil)
     end
   end
 
@@ -1158,7 +1148,7 @@ return chat_list(msg)
 	   tdcli.sendMessage(matches[2], 0, 1, "Group has been removed by admin command", 1, 'html')
     return '_Group_ *'..matches[2]..'* _removed_'
 		end
-if matches[1] == 'beyond' then
+if matches[1] == 'silas' then
 return tdcli.sendMessage(msg.to.id, msg.id, 1, _config.info_text, 1, 'html')
     end
 if matches[1] == 'adminlist' and is_admin(msg) then
@@ -1192,7 +1182,7 @@ if matches[1] == "helptools" and is_mod(msg) then
 if not lang then
 text = [[
 
-_Sudoer And Admins Beyond Bot Help :_
+_Sudoer And Admins Bot:_
 
 *!visudo* `[username|id|reply]`
 _Add Sudo_
@@ -1301,7 +1291,7 @@ tdcli.sendMessage(msg.chat_id_, 0, 1, text, 1, 'md')
 else
 
 text = [[
-_راهنمای ادمین و سودو های ربات بیوند:_
+_راهنمای ادمین و سودو های ربات :_
 
 *!visudo* `[username|id|reply]`
 _اضافه کردن سودو_
@@ -1405,7 +1395,7 @@ _این راهنما فقط برای سودو ها/ادمین های ربات م
 
 `این به این معناست که فقط سودو ها/ادمین های ربات میتوانند از دستورات بالا استفاده کنند!`
 
-*موفق باشید ;)*]]
+*پيروز باشيد ;)*]]
 tdcli.sendMessage(msg.chat_id_, 0, 1, text, 1, 'md')
 end
 
@@ -1427,7 +1417,7 @@ patterns = {
 "^[!/#](admindem) (.*)$",
 "^[!/#](leave)$",
 "^[!/#](autoleave) (.*)$", 
-"^[!/#](beyond)$",
+"^[!/#](silas)$",
 "^[!/#](creategroup) (.*)$",
 "^[!/#](createsuper) (.*)$",
 "^[!/#](tosuper)$",
